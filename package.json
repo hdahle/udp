@@ -1,0 +1,15 @@
+{
+  "name": "udp",
+  "version": "1.0.0",
+  "description": "banal udp server",
+  "main": "udpserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HD",
+  "license": "ISC",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "minimist": "^1.2.5"
+  }
+}
