@@ -9,12 +9,11 @@ var dgram = require('dgram');
 var server = dgram.createSocket('udp4');
 
 server.on('message', function (msg, rinfo) {
-  console.log('udpserver received: ', msg.length, msg.toString());
+  console.log('udpserver received: ', msg.length, msg.toString(), rinfo);
 });
 
 server.on('listening', function () {
-  var port = server.address().port;
-  console.log('udpserver port:    ', port);
+  console.log('udpserver port:    ', server.address().port);
 });
 
 server.on('close', function () {
@@ -26,5 +25,5 @@ server.on('error', function (error) {
   server.close();
 });
 
-server.bind(8080);
+server.bind(5683);
 
