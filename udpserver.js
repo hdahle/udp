@@ -18,13 +18,14 @@ var server = dgram.createSocket('udp4');
 
 server.on('message', function (msg, rinfo) {
   console.log('udpserver received: ', msg.length, msg.toString(), rinfo);
+  let data;
   try {
-    const data = JSON.parse(msg.toString())
-    sendToThingspeak(data);
+    data = JSON.parse(msg.toString());
   } catch (err) {
     console.log('invalid json');
     return;
   }
+  sendToThingspeak(data);
 });
 
 server.on('listening', function () {
@@ -71,7 +72,7 @@ function sendToThingspeak(data) {
   fetch(url)
     .then(response => response.text())
     .then(result => {
-      console.log(result)
+      console.log('Result:', result)
     })
     .catch(err => {
       console.log(err)
