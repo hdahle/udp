@@ -69,7 +69,10 @@ function sendToThingspeak(data) {
   console.log('sendToThingspeak:', url)
 
   fetch(url)
-    .then(response => response.json())
+    .then(response => response.text())
+    .then(result => {
+      console.log(result)
+    })
     .catch(err => {
       console.log(err)
     })
