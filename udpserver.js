@@ -4,7 +4,7 @@
  *
  *  HD, 2001
  */
-
+var fetch = require('node-fetch');
 var argv = require('minimist')(process.argv.slice(2));
 const apikey = argv.apikey;
 
