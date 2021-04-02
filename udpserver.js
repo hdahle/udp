@@ -60,11 +60,18 @@ function sendToThingspeak(data) {
   // Field8 = pm4
 
   let url = "https://api.thingspeak.com/update?api_key=" + apikey
-    + "&field1=" + data.p25
+    + "&field1=" + data.p2
     + "&field2=" + data.p10
     + "&field3=" + data.rssi
     + "&field5=" + data.up
     + "&field7=" + data.p1
     + "&field8=" + data.p4
   console.log('sendToThingspeak:', url)
+
+  fetch(url)
+    .then(response => response.json())
+    .catch(err => {
+      console.log(err)
+    })
+
 }
