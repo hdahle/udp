@@ -11,6 +11,8 @@
   "dependencies": {
     "dgram": "^1.0.1",
     "minimist": "^1.2.5",
-    "node-fetch": "^2.6.1"
+    "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.1.0"
   }
 }

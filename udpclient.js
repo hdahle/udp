@@ -1,20 +1,37 @@
-// Simple UDP Client
-// HD, 2001
+/*
+ * Simple UDP Client
+ * For testing udpserver.js
+ * 
+ *  HD, 2001
+ */
 
 // Process command line
 
 var argv = require('minimist')(process.argv.slice(2));
 const port = argv.port || 5683;
 const ip = argv.ip || 'localhost';
-const msg = argv.msg || 'hello';
+const sn = argv.sn || '982758BFB4C3E2C4';
+
+const testMessage = {
+  up: 100,    // uptime in seconds
+  p1: 1,      // PM1
+  p2: 2,      // PM2.5
+  p4: 4,      // PM4
+  p10: 10,    // PM10
+  sn: sn,     // serialno
+  rssi: 29    // receive signal strength
+};
+
+const msg = argv.msg || JSON.stringify(testMessage);
 
 // Print some usage info if required
 
-if (port === true || ip === true || msg === true) {
-  console.log('Usage: node eia.js [--port <port>] [--ip <ipaddr>] --msg "Message"');
+if (port === true || ip === true || msg === true || sn === true) {
+  console.log('Usage: node eia.js [--port <port>] [--ip <ipaddr>] [--msg "Message"] [--sn <serialno>');
   console.log('   --port: Default value is 8080')
   console.log('   --ip: Default value is localhost')
-  console.log('   --msg: Default value is "hello" ')
+  console.log('   --msg: JSON-formatted value ')
+  console.log('   --sn: IOT-device serial number, default 982758BFB4C3E2C4')
   process.exit();
 }
 console.log('udpclient: port', port, 'ip', ip, 'msg', msg)
