@@ -13,7 +13,6 @@ const iotMessage = {
   rssi: 31                // receive signal strength
 };
 ````
-
 The UDP server does the following:
 
 - Receive the JSON from the IOT device
@@ -28,7 +27,6 @@ The UDP server does the following:
 https://api.thingspeak.com/update?api_key=75YBFS7GXF6Q8MZY&field1=1&field2=3
 
 ````
-
 - api_key: a key that uniquely identifies a Thingspeak channel
 - field1...field8: up to 8 data fields 
 
@@ -46,16 +44,19 @@ How the Thingspeak fields are used:
 Please don't ask why the ordering of the fields is the way it is
 
 ### Redis key-value 
-Key: IoT device serial number
-Value: Write-key for the corresponding Thingspeak
-The key-value pair represents a one-to-one relationship between IoT device and Thingspeak channel
+- Key: IoT device serial number
+- Value: Write-key for the corresponding Thingspeak
+- The key-value pair represents a one-to-one relationship between IoT device and Thingspeak channel
 
 ### CLI manipulation of Redis key-value store
 
-````echo -n VALUE | redis-cli -x set KEY````
+````
+# Set key "iot-982758BFB4C3E2C4" to value "75YBFS7GXF6Q8MZY"
+echo -n 75YBFS7GXF6Q8MZY  | redis-cli -x set iot-982758BFB4C3E2C4
 
-````echo -n 75YBFS7GXF6Q8MZY  | redis-cli -x set iot-982758BFB4C3E2C4 ````
+# Get the value of key "iot-982758BFB4C3E2C4"
+redis-cli get iot-982758BFB4C3E2C4
 
-By prefixing each key with "iot-" we can easily list all iot-keys with
-
-````redis-cli keys "iot-*"````
+# List all "iot" keys 
+redis-cli keys "iot-*"
+````
