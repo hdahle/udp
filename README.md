@@ -56,7 +56,7 @@ Each Redis Key-Value pair is therefore:
 The provisioning, or configuration, of an IoT device simply means entering key-value pair in the Redis database. There s no other configuration of the IoT device.
 
 ### CLI manipulation of Redis key-value store
-The following is useful for manually mesing around with the Redis key-value store:
+The following is useful for manually messing around with the Redis key-value store:
 
 ````
 # Set key "iot-982758BFB4C3E2C4" to value "XXXXXXXXXXXXXXXXXXXX"
