@@ -24,7 +24,7 @@ The UDP server does the following:
 ### Thingspeak REST call
 
 ````
-https://api.thingspeak.com/update?api_key=75YBFS7GXF6Q8MZY&field1=1&field2=3
+https://api.thingspeak.com/update?api_key=XXXXXXXXXXXXXXXXXXXX&field1=1&field2=3
 
 ````
 - api_key: a key that uniquely identifies a Thingspeak channel
@@ -59,8 +59,8 @@ The provisioning, or configuration, of an IoT device simply means entering key-v
 The following is useful for manually mesing around with the Redis key-value store:
 
 ````
-# Set key "iot-982758BFB4C3E2C4" to value "75YBFS7GXF6Q8MZY"
-echo -n 75YBFS7GXF6Q8MZY  | redis-cli -x set iot-982758BFB4C3E2C4
+# Set key "iot-982758BFB4C3E2C4" to value "XXXXXXXXXXXXXXXXXXXX"
+echo -n XXXXXXXXXXXXXXXXX  | redis-cli -x set iot-982758BFB4C3E2C4
 
 # Get the value of key "iot-982758BFB4C3E2C4"
 redis-cli get iot-982758BFB4C3E2C4
