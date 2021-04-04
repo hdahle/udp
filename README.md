@@ -44,11 +44,19 @@ How the Thingspeak fields are used:
 Please don't ask why the ordering of the fields is the way it is
 
 ### Redis key-value 
+The Redis database contains the mapping from IoT-device serial number and the Thingspeak channel. 
+- IoT serial number: This is the hardwired device ID inside the SPS particle sensor
+- Thingspeak channel: A single Thingspeak channel contains the time-series data for a single IoT device
+Each Redis Key-Value pair is therefore:
 - Key: IoT device serial number
 - Value: Write-key for the corresponding Thingspeak
 - The key-value pair represents a one-to-one relationship between IoT device and Thingspeak channel
 
+### Provisioning of an IoT device
+The provisioning, or configuration, of an IoT device simply means entering key-value pair in the Redis database. There s no other configuration of the IoT device.
+
 ### CLI manipulation of Redis key-value store
+The following is useful for manually mesing around with the Redis key-value store:
 
 ````
 # Set key "iot-982758BFB4C3E2C4" to value "75YBFS7GXF6Q8MZY"
