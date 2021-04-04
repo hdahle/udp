@@ -28,7 +28,6 @@ The UDP server does the following:
 - Receive the JSON from the IOT device
 - Using the IOT device serial number, look up the corresponding Thingspeak channel number
 - Using an HTTPS GET, send the data from the IOT device to the Thingspeak channel
-- Each IOT device has a unique Thingspeak channel which stores the time-series data 
 - Thingspeak provides easy manipulation and retrieval of this time-series data
 
 ### Thingspeak REST call
