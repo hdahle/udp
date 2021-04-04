@@ -1,5 +1,7 @@
 # A banal UDP server for IoT devices
 
+````IoT devices -> { json } -> UDP server -> HTTP REST -> Thingspeak````
+
 Each IOT-device will regularly send a JSON-blob to the UDP server. The JSON schema is
 
 ````
