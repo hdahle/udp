@@ -2,12 +2,13 @@
 
 ````
 IoT devices -> { json } -> UDP server -> HTTP REST -> Thingspeak -> Visualization
-                            |     ^
-                           s/n    |
-                            |    key
-                            v     |
-                             Redis 
-                 (IoT s/n to Thingspeak key mapping)
+                            |      ^
+                         IoT s/n   |
+                            |      |
+                            |  TS write key
+                            v      |
+                             Redis
+                 (IoT s/n to Thingspeak write key)
 ````
 
 Each IOT-device will regularly send a JSON-blob to the UDP server. The JSON schema is
