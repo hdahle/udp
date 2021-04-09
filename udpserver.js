@@ -10,7 +10,28 @@ var fetch = require('node-fetch');
 var moment = require('moment');
 const momFmt = 'YY-MM-DD hh:mm:ss';
 var redis = require('redis');
-var redClient = redis.createClient();
+//var redClient = redis.createClient();
+
+
+var argv = require('minimist')(process.argv.slice(2), {
+  alias: { h: 'host', a: 'auth' }
+});
+
+const host = argv.host;
+const auth = argv.auth;
+
+if (host === undefined || auth === undefined) {
+  console.log('Usage: udpserver --host <hostname> --auth <auth>');
+  process.exit();
+}
+
+let redClient = redis.createClient(6380, host, {
+  auth_pass: auth,   // process.env.REDISCACHEKEY, 
+  tls: {
+    servername: host // process.env.REDISCACHEHOSTNAME 
+  }
+});
+
 
 redClient.on('connect', function () {
   console.log(moment().format(momFmt) + ' Redis client connected');
