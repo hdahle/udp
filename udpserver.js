@@ -70,7 +70,7 @@ server.on('close', function () {
   console.log(moment().format(momFmt) + ' udpserver: socket closed');
 });
 server.on('error', function (error) {
-  console.log(`${moment().format(momFmt)} Error: ${error}`);
+  console.log(`${moment().format(momFmt)} udpserver Error: ${error}`);
   server.close();
 });
 
@@ -100,7 +100,7 @@ function sendToThingspeak(data) {
           console.log(err)
         })
     } else {
-      console.log(moment().format(momFmt) + ' Error: ' + error);
+      console.log(moment().format(momFmt) + ' HTTP GET Error: ' + error);
     }
   });
 }
