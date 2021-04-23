@@ -11,6 +11,7 @@ var argv = require('minimist')(process.argv.slice(2));
 const port = argv.port || 5683;
 const ip = argv.ip || 'localhost';
 const sn = argv.sn || '982758BFB4C3E2C4';
+const argvHelp = argv.help;
 
 const testMessage = {
   up: 100,    // uptime in seconds
@@ -26,8 +27,8 @@ const msg = argv.msg || JSON.stringify(testMessage);
 
 // Print some usage info if required
 
-if (port === true || ip === true || msg === true || sn === true) {
-  console.log('Usage: node eia.js [--port <port>] [--ip <ipaddr>] [--msg "Message"] [--sn <serialno>');
+if (argvHelp === true || port === true || ip === true || msg === true || sn === true) {
+  console.log('Usage: node udpclient.js [--port <port>] [--ip <ipaddr>] [--msg "Message"] [--sn <serialno>] [--help]');
   console.log('   --port: Default value is 8080')
   console.log('   --ip: Default value is localhost')
   console.log('   --msg: JSON-formatted value ')
