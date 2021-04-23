@@ -87,6 +87,7 @@ server.bind(5683);
 // Field4 = not used     Field8 = pm4
 function sendToThingspeak(data) {
   const redisKey = "iot-" + data.sn;
+  console.log(moment().format(momFmt) + ' redisKey:' + redisKey)
   redClient.get(redisKey, function (error, value) {
     if (value) {
       console.log(moment().format(momFmt) + ' Redis value:' + value);
@@ -100,7 +101,7 @@ function sendToThingspeak(data) {
           console.log(err)
         })
     } else {
-      console.log(moment().format(momFmt) + ' HTTP GET Error: ' + error);
+      console.log(moment().format(momFmt) + ' redis client get error: ' + error);
     }
   });
 }
