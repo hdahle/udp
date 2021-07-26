@@ -11,16 +11,18 @@ var argv = require('minimist')(process.argv.slice(2));
 const port = argv.port || 5683;
 const ip = argv.ip || 'localhost';
 const sn = argv.sn || '982758BFB4C3E2C4';
+const rssi = argv.rssi;
+const p1 = argv.p1;
 const argvHelp = argv.help;
 
 const testMessage = {
   up: 100,    // uptime in seconds
-  p1: 1,      // PM1
+  p1: p1,     // PM1
   p2: 2,      // PM2.5
   p4: 4,      // PM4
   p10: 10,    // PM10
   sn: sn,     // serialno
-  rssi: 29    // receive signal strength
+  rssi: rssi  // receive signal strength
 };
 
 const msg = argv.msg || JSON.stringify(testMessage);
