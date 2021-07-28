@@ -29,7 +29,7 @@ server.on('error', function (error) {
 
 // datagram received. parse it and send to thingspeak
 server.on('message', function (msg, rinfo) {
-  console.log('udpserver:', rinfo.address, ':', rinfo.port, ':', msg.toString());
+  console.log('udpserver:', rinfo.address, msg.toString());
   let data;
   try {
     data = JSON.parse(msg.toString());
@@ -45,7 +45,11 @@ server.on('message', function (msg, rinfo) {
     console.log('udpserver: Serialno missing');
     return;
   }
-  sendToThingspeak(data);
+  const tsChannel = lut.iotLut('iot-' + data.sn);
+  if (!tsChannel)
+    console.log('udpserver: no channel for', data.sn)
+  else
+    sendToThingspeak(data, tsChannel);
 });
 
 
@@ -56,23 +60,11 @@ server.on('message', function (msg, rinfo) {
 // Field2 = pm10         Field6 = client version
 // Field3 = RSSI         Field7 = pm1
 // Field4 = not used     Field8 = pm4
-function sendToThingspeak(data) {
-  const iotSerialNo = "iot-" + data.sn;
-  console.log('udpserver: iotSerialNo', iotSerialNo);
-  const thingSpeakChannel = lut.iotLut(iotSerialNo);
-  if (thingSpeakChannel === null) {
-    console.log('udpserver: Error - channel not found for serialno', iotSerialNo);
-    return;
-  }
-  console.log('udpserver: tsChannel', thingSpeakChannel);
+function sendToThingspeak(data, thingSpeakChannel) {
   const url = `https://api.thingspeak.com/update?api_key=${thingSpeakChannel}&field1=${data.p2}&field2=${data.p10}&field3=${data.rssi}&field5=${data.up}&field7=${data.p1}&field8=${data.p4}`
   fetch(url)
     .then(response => response.text())
-    .then(result => {
-      console.log('udpserver: Fetch result', result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    .then(result => console.log(`udpserver: chan ${thingSpeakChannel} result ${result}`))
+    .catch(err => console.log(err))
 }
 

@@ -37,7 +37,7 @@ if (argvHelp === true || port === true || ip === true || msg === true || sn === 
   console.log('   --sn: IOT-device serial number, default 982758BFB4C3E2C4');
   process.exit();
 }
-console.log('udpclient:', ip, ':', port, ':', msg)
+console.log(`udpclient: ${ip}:${port} ${msg}`)
 
 // Create socket
 
