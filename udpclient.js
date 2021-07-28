@@ -31,10 +31,10 @@ const msg = argv.msg || JSON.stringify(testMessage);
 
 if (argvHelp === true || port === true || ip === true || msg === true || sn === true) {
   console.log('Usage: node udpclient.js [--port <port>] [--ip <ipaddr>] [--msg "Message"] [--sn <serialno>] [--help]');
-  console.log('   --port: Default value is 8080')
-  console.log('   --ip: Default value is localhost')
-  console.log('   --msg: JSON-formatted value ')
-  console.log('   --sn: IOT-device serial number, default 982758BFB4C3E2C4')
+  console.log('   --port: Default value is 5683');
+  console.log('   --ip: Default value is localhost');
+  console.log('   --msg: JSON-formatted value ');
+  console.log('   --sn: IOT-device serial number, default 982758BFB4C3E2C4');
   process.exit();
 }
 console.log('udpclient:', ip, ':', port, ':', msg)
