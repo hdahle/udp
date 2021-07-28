@@ -8,8 +8,6 @@
 
 var lut = require('./iotlut');
 var fetch = require('node-fetch');
-var moment = require('moment');
-const momFmt = 'YY-MM-DD hh:mm:ss';
 
 // create socket
 var dgram = require('dgram');
@@ -19,32 +17,32 @@ var server = dgram.createSocket('udp4');
 server.bind(5683);
 
 server.on('listening', function () {
-  console.log(moment().format(momFmt), 'udpserver: Listening at port:', server.address().port);
+  console.log('udpserver: Listening at port:', server.address().port);
 });
 server.on('close', function () {
-  console.log(moment().format(momFmt), 'udpserver: Socket closed');
+  console.log('udpserver: Socket closed');
 });
 server.on('error', function (error) {
-  console.log(`${moment().format(momFmt)} udpserver: Error ${error}`);
+  console.log(`udpserver: Error ${error}`);
   server.close();
 });
 
 // datagram received. parse it and send to thingspeak
 server.on('message', function (msg, rinfo) {
-  console.log(moment().format(momFmt), 'udpserver: Received ', rinfo, msg.toString());
+  console.log('udpserver: Received ', rinfo, msg.toString());
   let data;
   try {
     data = JSON.parse(msg.toString());
   } catch (err) {
-    console.log(moment().format(momFmt), 'udpserver: Invalid json received');
+    console.log('udpserver: Invalid json received');
     return;
   }
   if (isNaN(data.p1) || isNaN(data.p2) || isNaN(data.p4) || isNaN(data.p10) || isNaN(data.up) || isNaN(data.rssi)) {
-    console.log(moment().format(momFmt), "udpserver: Unexpected JSON");
+    console.log('udpserver: Unexpected JSON');
     return;
   }
   if (data.sn === undefined) {
-    console.log(moment().format(momFmt), "udpserver: Unexpected serialnumber ", data.sn);
+    console.log('udpserver: Serialnumber missing');
     return;
   }
   sendToThingspeak(data);
@@ -60,22 +58,21 @@ server.on('message', function (msg, rinfo) {
 // Field4 = not used     Field8 = pm4
 function sendToThingspeak(data) {
   const iotSerialNo = "iot-" + data.sn;
-  console.log(moment().format(momFmt), 'udpserver: iotSerialNo', iotSerialNo);
+  console.log('udpserver: iotSerialNo', iotSerialNo);
   const thingSpeakChannel = lut.iotLut(iotSerialNo);
   if (thingSpeakChannel === null) {
-    console.log(moment().format(momFmt), "udpserver: Warning - channel not found");
+    console.log('udpserver: Error - channel not found for serialno', iotSerialNo);
     return;
   }
-  console.log(moment().format(momFmt), 'udpserver: tsChannel', thingSpeakChannel);
+  console.log('udpserver: tsChannel', thingSpeakChannel);
   const url = `https://api.thingspeak.com/update?api_key=${thingSpeakChannel}&field1=${data.p2}&field2=${data.p10}&field3=${data.rssi}&field5=${data.up}&field7=${data.p1}&field8=${data.p4}`
   fetch(url)
     .then(response => response.text())
     .then(result => {
-      console.log(moment().format(momFmt), 'udpserver: Fetch result', result)
+      console.log('udpserver: Fetch result', result)
     })
     .catch(err => {
       console.log(err)
     })
-
 }
 
