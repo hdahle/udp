@@ -76,9 +76,10 @@ sudo env PATH=$PATH:/opt/bitnami/nodejs/bin /opt/bitnami/nodejs/lib/node_modules
 - Then run the startup script as root
 
 ````
-$sudo env PATH=$PATH:/opt/bitnami/nodejs/bin /opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u username --hp /home/username
+$ sudo env PATH=$PATH:/opt/bitnami/nodejs/bin /opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u username --hp /home/username
 ````
 - The generating and running the startup script is only required once
+- To undo the effect of ````pm2 startup```` simply do ````pm2 unstartup````
 - Saving the startup config ````pm2 save```` should be done after every change
 
 
