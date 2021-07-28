@@ -52,7 +52,30 @@ How the Thingspeak fields are used:
 
 Please don't ask why the ordering of the fields is the way it is
 
-### Redis key-value 
+## Useful PM2 stuff for running the miniudpserver
+
+### Start the server, ensure auto-restart when source changes (e.g. after a git pull):
+````pm2 start miniudpserver.js --watch````
+
+### Save the currently running list of PM2 processes
+Do this after every time a new process is added, but not required after simply restarting a process:
+````pm2 save````
+
+### Ensure PM2 restarts all saved processes after a server reboot. 
+- First generate a startup script
+````
+$ pm2 startup
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/opt/bitnami/nodejs/bin /opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u username --hp /home/username
+
+$sudo env PATH=$PATH:/opt/bitnami/nodejs/bin /opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u username --hp /home/username
+````
+- The generating and running the startup script is only required once
+- Saving the startup config ````pm2 save```` should be done after every change
+
+
+### Redis key-value (only for udpserver, not used in miniudpserver)
 The Redis database contains the mapping from IoT-device serial number and the Thingspeak channel. 
 - IoT serial number: This is the hardwired device ID inside the SPS particle sensor
 - Thingspeak channel: A single Thingspeak channel contains the time-series data for a single IoT device
@@ -62,7 +85,7 @@ Each Redis Key-Value pair is therefore:
 - The key-value pair represents a one-to-one relationship between IoT device and Thingspeak channel
 
 ### Provisioning of an IoT device
-The provisioning, or configuration, of an IoT device simply means entering key-value pair in the Redis database. There s no other configuration of the IoT device.
+The provisioning, or configuration, of an IoT device simply means entering key-value pair in the Redis database. There is no other configuration of the IoT device.
 
 ### CLI manipulation of Redis key-value store
 The following is useful for manually messing around with the Redis key-value store:
