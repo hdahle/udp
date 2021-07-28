@@ -17,7 +17,7 @@ var server = dgram.createSocket('udp4');
 server.bind(5683);
 
 server.on('listening', function () {
-  console.log('udpserver: Listening at port:', server.address().port);
+  console.log('udpserver: Listening port', server.address().port);
 });
 server.on('close', function () {
   console.log('udpserver: Socket closed');
@@ -29,12 +29,12 @@ server.on('error', function (error) {
 
 // datagram received. parse it and send to thingspeak
 server.on('message', function (msg, rinfo) {
-  console.log('udpserver: Received ', rinfo.address, msg.toString());
+  console.log('udpserver:', rinfo.address, ':', rinfo.port, ':', msg.toString());
   let data;
   try {
     data = JSON.parse(msg.toString());
   } catch (err) {
-    console.log('udpserver: Invalid json received');
+    console.log('udpserver: Invalid json rcvd');
     return;
   }
   if (isNaN(data.p1) || isNaN(data.p2) || isNaN(data.p4) || isNaN(data.p10) || isNaN(data.up) || isNaN(data.rssi)) {
@@ -42,7 +42,7 @@ server.on('message', function (msg, rinfo) {
     return;
   }
   if (data.sn === undefined) {
-    console.log('udpserver: Serialnumber missing');
+    console.log('udpserver: Serialno missing');
     return;
   }
   sendToThingspeak(data);
