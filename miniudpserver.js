@@ -29,7 +29,7 @@ server.on('error', function (error) {
 
 // datagram received. parse it and send to thingspeak
 server.on('message', function (msg, rinfo) {
-  console.log('udpserver: Received ', rinfo, msg.toString());
+  console.log('udpserver: Received ', rinfo.address, msg.toString());
   let data;
   try {
     data = JSON.parse(msg.toString());
