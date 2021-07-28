@@ -1,6 +1,6 @@
 /*
  * Simple UDP Client
- * For testing udpserver.js
+ * For testing miniudpserver.js
  * 
  *  HD, 2001
  */
@@ -11,7 +11,7 @@ var argv = require('minimist')(process.argv.slice(2));
 const port = argv.port || 5683;
 const ip = argv.ip || 'localhost';
 const sn = argv.sn || '982758BFB4C3E2C4';
-const rssi = argv.rssi;
+const rssi = argv.rssi || 29;
 const p1 = argv.p1;
 const argvHelp = argv.help;
 
